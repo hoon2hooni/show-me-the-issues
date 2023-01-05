@@ -1,3 +1,30 @@
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DeleteIcon,
+} from "@chakra-ui/icons";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  Heading,
+  HStack,
+  IconButton,
+  Input,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+  VStack,
+} from "@chakra-ui/react";
 import Head from "next/head";
 export default function Home() {
   return (
@@ -9,9 +36,90 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>보일러 플레이트</h1>
-        <p>nextjs, react query, emotion, typescript, zustand</p>
-        <p>theme, type alias,</p>
+        <VStack
+          height={"100vh"}
+          justify="center"
+          align="center"
+          px="20"
+          gap={5}
+        >
+          <Heading mb={5} fontWeight={"extrabold"}>
+            Show Me The Issues
+          </Heading>
+          <HStack gap={"5"} w={"100%"}>
+            {[1, 2, 3, 4].map((k) => (
+              <Card flex="1" key={k} pos={"relative"}>
+                <CardBody>
+                  <Text>레포이름</Text>
+                </CardBody>
+                <IconButton
+                  aria-label="delete repository"
+                  colorScheme={"red"}
+                  pos={"absolute"}
+                  top={"3"}
+                  right={"3"}
+                  w={"auto"}
+                  size="xs"
+                  icon={<DeleteIcon w={3} h={3} />}
+                ></IconButton>
+              </Card>
+            ))}
+          </HStack>
+          <Input marginTop={"30"} w={"3xl"} alignSelf={"flex-start"} />
+          <TableContainer w={"100%"}>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>레포명</Th>
+                  <Th>제목</Th>
+                  <Th>타입</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {new Array(10).fill(1).map((_, idx) => (
+                  <Tr key={idx}>
+                    <Td>typescript</Td>
+                    <Td>millimetres (mm)</Td>
+                    <Td>
+                      <Badge variant={"subtle"} colorScheme={"green"}>
+                        new
+                      </Badge>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+            <HStack w={"100%"} justify="center" mt="10" gap="5">
+              <HStack>
+                <IconButton
+                  aria-label="left"
+                  icon={<ArrowLeftIcon h={3} w={3} />}
+                />
+                <IconButton
+                  aria-label="left"
+                  icon={<ChevronLeftIcon h={6} w={6} />}
+                />
+              </HStack>
+              <HStack>
+                {[1, 2, 3, 4, 5].map((v) => (
+                  <Button aria-label={`${v}`} key={v}>
+                    {v}
+                  </Button>
+                ))}
+              </HStack>
+              <HStack>
+                <IconButton
+                  aria-label="left"
+                  icon={<ChevronRightIcon h={6} w={6} />}
+                />
+                <IconButton
+                  aria-label="left"
+                  icon={<ArrowRightIcon h={3} w={3} />}
+                />
+              </HStack>
+            </HStack>
+          </TableContainer>
+        </VStack>
       </main>
     </div>
   );
