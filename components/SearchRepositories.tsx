@@ -7,11 +7,11 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useOutsideClick } from "@chakra-ui/react";
 import { RepositoryState } from "@customTypes/repository";
 import useDebounce from "@lib/hooks/useDebounce";
 import useRepositories from "@lib/hooks/useRepositories";
-import { useState } from "react";
-
+import { useRef, useState } from "react";
 type ComponentProps = {
   repositories: RepositoryState[];
   onClickAddRepository: (repository: RepositoryState) => void;
@@ -22,6 +22,12 @@ export default function SearchRepositories({
   onClickAddRepository,
 }: ComponentProps) {
   const [queries, setQueries] = useState("");
+  const [isAutocompleteOpen, setIsAutocompleteOpen] = useState(false);
+  const autocompleteRef = useRef(null);
+  useOutsideClick({
+    ref: autocompleteRef,
+    handler: () => setIsAutocompleteOpen(false),
+  });
   const debouncedQueries = useDebounce(queries, 300);
   const { data, isLoading, isError } = useRepositories({
     q: debouncedQueries,
@@ -35,18 +41,22 @@ export default function SearchRepositories({
       w={"xl"}
       zIndex={20}
       bg={"white"}
+      ref={autocompleteRef}
     >
       <Input
-        marginTop={"30"}
         px="8"
-        onChange={(e) => setQueries(e.target.value)}
+        onChange={(e) => {
+          setQueries(e.target.value);
+          setIsAutocompleteOpen(true);
+        }}
         value={queries}
+        onFocus={() => setIsAutocompleteOpen(true)}
       />
-      {queries && data && (
+      {isAutocompleteOpen && data && (
         <VStack
           w={"100%"}
           pos={"absolute"}
-          top={20}
+          top={12}
           bg={"white"}
           py={"2"}
           px={"4"}
@@ -69,6 +79,7 @@ export default function SearchRepositories({
                   stargazers_count,
                 });
                 setQueries("");
+                setIsAutocompleteOpen(false);
               }}
             >
               <Flex h={12} w="100%" align={"center"}>
