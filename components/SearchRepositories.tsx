@@ -7,12 +7,22 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { RepositoryState } from "@customTypes/repository";
 import useDebounce from "@lib/hooks/useDebounce";
 import useRepositories from "@lib/hooks/useRepositories";
 import { useState } from "react";
-export default function SearchRepositories() {
+
+type ComponentProps = {
+  repositories: RepositoryState[];
+  onClickAddRepository: (repository: RepositoryState) => void;
+};
+
+export default function SearchRepositories({
+  repositories,
+  onClickAddRepository,
+}: ComponentProps) {
   const [queries, setQueries] = useState("");
-  const debouncedQueries = useDebounce(queries, 500);
+  const debouncedQueries = useDebounce(queries, 300);
   const { data, isLoading, isError } = useRepositories({
     q: debouncedQueries,
     per_page: "5",
@@ -30,8 +40,9 @@ export default function SearchRepositories() {
         marginTop={"30"}
         px="8"
         onChange={(e) => setQueries(e.target.value)}
+        value={queries}
       />
-      {data && (
+      {queries && data && (
         <VStack
           w={"100%"}
           pos={"absolute"}
@@ -50,6 +61,15 @@ export default function SearchRepositories() {
               w={"100%"}
               colorScheme={"gray"}
               alignItems={"center"}
+              onClick={() => {
+                onClickAddRepository({
+                  node_id,
+                  name,
+                  owner: owner.login,
+                  stargazers_count,
+                });
+                setQueries("");
+              }}
             >
               <Flex h={12} w="100%" align={"center"}>
                 <Flex fontWeight={"bold"} w={"100%"}>

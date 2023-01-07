@@ -26,17 +26,23 @@ const repositoryReducer = (state: RepositoryState[], action: Action) => {
   }
 };
 
-const initialRepositories: RepositoryState[] = [
-  { node_id: "a", owner: "muyaho", name: "facebook", stargazers_count: 1234 },
-  { node_id: "b", owner: "muya", name: "facok", stargazers_count: 1234 },
-  { node_id: "c", owner: "muho", name: "facek", stargazers_count: 1234 },
-  { node_id: "d", owner: "maho", name: "facebk", stargazers_count: 1234 },
-];
 
 export default function Home() {
-  const [repositories, dispatch] = useReducer(repositoryReducer, initialRepositories);
+  const [repositories, dispatch] = useReducer(
+    repositoryReducer,
+    []
+  );
   const handleClickDeleteRepository = (id: string) => () => {
     dispatch({ type: "DELETE_REPOSITORY", payload: id });
+  };
+  const handleClickAddRepository = (repository: RepositoryState) => {
+    if (repositories.length >= 4) {
+      return;
+    }
+    if (repositories.find(({ node_id }) => node_id === repository.node_id)) {
+      return;
+    }
+    dispatch({ type: "ADD_REPOSITORY", payload: repository });
   };
   return (
     <Layout>
@@ -44,7 +50,10 @@ export default function Home() {
         repositories={repositories}
         onClickDeleteRepository={handleClickDeleteRepository}
       />
-      <SearchRepositories />
+      <SearchRepositories
+        repositories={repositories}
+        onClickAddRepository={handleClickAddRepository}
+      />
       <IssuesTable />
     </Layout>
   );
