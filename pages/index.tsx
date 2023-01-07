@@ -1,10 +1,10 @@
+import { useToast } from "@chakra-ui/react";
 import IssuesTable from "@components/IssuesTable";
 import Layout from "@components/Layout";
 import RepositoriesCards from "@components/RepositoriesCards";
 import SearchRepositories from "@components/SearchRepositories";
 import { RepositoryState } from "@customTypes/repository";
 import { useEffect, useReducer } from "react";
-
 type Action =
   | {
       type: "ADD_REPOSITORY";
@@ -41,6 +41,7 @@ const repositoryReducer = (state: RepositoryState[], action: Action) => {
 
 export default function Home() {
   const [repositories, dispatch] = useReducer(repositoryReducer, []);
+  const toast = useToast();
   useEffect(() => {
     if (window) {
       const result = window.localStorage.getItem("github-issues");
@@ -58,9 +59,20 @@ export default function Home() {
   };
   const handleClickAddRepository = (repository: RepositoryState) => {
     if (repositories.length >= 4) {
+      toast({
+        title: "최대 레포지토리 갯수는 4개입니다.",
+        description: "레포지토리를 지우고 추가해주세요",
+        status: "info",
+        duration: 2000,
+      });
       return;
     }
     if (repositories.find(({ node_id }) => node_id === repository.node_id)) {
+      toast({
+        title: "이미 존재하는 레포지토리입니다.",
+        status: "info",
+        duration: 2000,
+      });
       return;
     }
     dispatch({ type: "ADD_REPOSITORY", payload: repository });
