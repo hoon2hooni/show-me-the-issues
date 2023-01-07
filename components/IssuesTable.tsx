@@ -19,6 +19,7 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
+
 export default function IssuesTable() {
   return (
     <TableContainer w={"100%"}>

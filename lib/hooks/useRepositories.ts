@@ -5,5 +5,7 @@ export default function useRepositories(config: RepositoryQueryConfig) {
   return useQuery({
     queryFn: () => getRepositories(config),
     queryKey: [{ path: "repositories", ...config }],
+    enabled: !!config.q,
+    retry: 0,
   });
 }
