@@ -1,10 +1,11 @@
-type RepositoryName = {
-  owner: string;
-  name: string;
-};
+import { RepositoryState } from "@customTypes/repository";
 
-export function issueQueryBuilder(array: RepositoryName[]) {
+export function issueQueryBuilder<
+  T extends Pick<RepositoryState, "name" | "owner">[]
+>(array: T) {
+  if (!array.length) {
+    return "";
+  }
   const repoQueries = array.map(({ owner, name }) => `repo:${owner}/${name}`);
-  //repo:fullname repo:fullname
-  return encodeURIComponent(repoQueries.join(" ") + " is:issue");
+  return repoQueries.join(" ") + " is:issue";
 }

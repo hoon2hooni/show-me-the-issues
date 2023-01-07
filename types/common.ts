@@ -2,7 +2,7 @@ export type QueryConfig = {
   q: string;
   order?: "desc" | "asc";
   per_page?: `${number}`;
-  pate?: `${number}`;
+  page?: `${number}`;
 };
 
 export type SearchResponse<T = any[]> = {
