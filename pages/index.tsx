@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import IssuesTable from "@components/IssuesTable";
+import IssuesTableTemplate from "@components/IssuesTableTemplate";
 import Layout from "@components/Layout";
 import RepositoriesCards from "@components/RepositoriesCards";
 import SearchRepositories from "@components/SearchRepositories";
@@ -87,7 +87,7 @@ export default function Home() {
         repositories={repositories}
         onClickAddRepository={handleClickAddRepository}
       />
-      <IssuesTable repositories={repositories} />
+      <IssuesTableTemplate repositories={repositories} />
     </Layout>
   );
 }
