@@ -26,12 +26,8 @@ const repositoryReducer = (state: RepositoryState[], action: Action) => {
   }
 };
 
-
 export default function Home() {
-  const [repositories, dispatch] = useReducer(
-    repositoryReducer,
-    []
-  );
+  const [repositories, dispatch] = useReducer(repositoryReducer, []);
   const handleClickDeleteRepository = (id: string) => () => {
     dispatch({ type: "DELETE_REPOSITORY", payload: id });
   };
@@ -54,7 +50,7 @@ export default function Home() {
         repositories={repositories}
         onClickAddRepository={handleClickAddRepository}
       />
-      <IssuesTable />
+      <IssuesTable repositories={repositories} />
     </Layout>
   );
 }
