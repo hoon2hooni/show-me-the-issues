@@ -3,7 +3,7 @@ import Layout from "@components/Layout";
 import RepositoriesCards from "@components/RepositoriesCards";
 import SearchRepositories from "@components/SearchRepositories";
 import { RepositoryState } from "@customTypes/repository";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 type Action =
   | {
@@ -13,21 +13,46 @@ type Action =
   | {
       type: "DELETE_REPOSITORY";
       payload: string;
+    }
+  | {
+      type: "SET_REPOSITORIES";
+      payload: RepositoryState[];
     };
 
 const repositoryReducer = (state: RepositoryState[], action: Action) => {
   switch (action.type) {
-    case "ADD_REPOSITORY":
-      return [...state, action.payload];
-    case "DELETE_REPOSITORY":
-      return state.filter(({ node_id }) => node_id !== action.payload);
+    case "ADD_REPOSITORY": {
+      const result = [...state, action.payload];
+      localStorage.setItem("github-issues", JSON.stringify(result));
+      return result;
+    }
+    case "DELETE_REPOSITORY": {
+      const result = state.filter(({ node_id }) => node_id !== action.payload);
+      localStorage.setItem("github-issues", JSON.stringify(result));
+      return result;
+    }
+    case "SET_REPOSITORIES": {
+      return action.payload;
+    }
     default:
-      throw new Error("this is not right");
+      throw new Error("this is not right action");
   }
 };
 
 export default function Home() {
   const [repositories, dispatch] = useReducer(repositoryReducer, []);
+  useEffect(() => {
+    if (window) {
+      const result = window.localStorage.getItem("github-issues");
+      if (!result) {
+        return;
+      }
+      dispatch({
+        type: "SET_REPOSITORIES",
+        payload: JSON.parse(result) as RepositoryState[],
+      });
+    }
+  }, []);
   const handleClickDeleteRepository = (id: string) => () => {
     dispatch({ type: "DELETE_REPOSITORY", payload: id });
   };
