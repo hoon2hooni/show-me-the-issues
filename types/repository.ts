@@ -1,8 +1,6 @@
-export type SearchRepositoriesResponse = {
-  total_count: number;
-  incomplete_results: boolean;
-  items: Repository[];
-};
+import { QueryConfig, SearchResponse } from "./common";
+
+export type SearchRepositoriesResponse = SearchResponse<Repository[]>;
 
 export type Repository = {
   node_id: string;
@@ -20,10 +18,6 @@ export type RepositoryState = Omit<Repository, "owner" | "full_name"> & {
   owner: string;
 };
 
-export type RepositoryQueryConfig = {
-  q: string;
-  sort?: "stars" | "forks" | "help-wanted-issues";
-  order?: "desc" | "asc";
-  per_page?: `${number}`;
-  page?: `${number}`;
+export type RepositoryQueryConfig = QueryConfig & {
+  sort?: "stars";
 };

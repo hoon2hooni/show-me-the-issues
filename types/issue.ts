@@ -1,12 +1,14 @@
-export type SearchRepositoriesResponse = {
-  total_count: number;
-  incomplete_results: boolean;
-  items: Issue[];
-};
+import { QueryConfig, SearchResponse } from "./common";
+
+export type SearchIssuesResponse = SearchResponse<Issue[]>;
 
 export type Issue = {
-  title:string;
+  title: string;
   node_id: string;
   html_url: string;
   state: "open" | "closed";
+};
+
+export type IssueQueryConfig = QueryConfig & {
+  sort?: "created" | "updated";
 };

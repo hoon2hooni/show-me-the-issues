@@ -3,13 +3,11 @@ import {
   SearchRepositoriesResponse,
 } from "@customTypes/repository";
 
-import { getQueryString } from "../queryString";
-import axiosInstance from "./axiosInstance";
+import getSearch from "./getSearch";
 
-const getRepositories = async (queryConfig: RepositoryQueryConfig) => {
-  return await axiosInstance.get<SearchRepositoriesResponse>(
-    `repositories?${getQueryString(queryConfig)}`
-  );
-};
+const getRepositories = getSearch<
+  RepositoryQueryConfig,
+  SearchRepositoriesResponse
+>("repositories");
 
 export default getRepositories;
