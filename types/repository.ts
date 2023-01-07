@@ -19,3 +19,11 @@ export type Owner = {
 export type RepositoryState = Omit<Repository, "owner" | "full_name"> & {
   owner: string;
 };
+
+export type RepositoryQueryConfig = {
+  q: string;
+  sort?: "stars" | "forks" | "help-wanted-issues";
+  order?: "desc" | "asc";
+  per_page?: `${number}`;
+  page?: `${number}`;
+};
