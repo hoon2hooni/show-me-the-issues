@@ -24,8 +24,7 @@
       "@lib/*": ["lib/*"],
       "@api/*": ["lib/api/*"],
       "@hooks/*": ["lib/hooks/*"],
-      "@types": ["types"],
-      "@types/*": ["types/*"]
+      "@customTypes/*": ["types/*"]
     }
   },
   "include": [

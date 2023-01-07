@@ -15,3 +15,7 @@ export type Repository = {
 export type Owner = {
   login: string;
 };
+
+export type RepositoryState = Omit<Repository, "owner" | "full_name"> & {
+  owner: string;
+};
