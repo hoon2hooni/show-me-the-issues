@@ -1,12 +1,12 @@
+import { Heading, VStack } from "@chakra-ui/react";
 import React, { PropsWithChildren } from "react";
-
-function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div>
-      <h1>Layout</h1>
+    <VStack height={"100vh"} justify="center" align="center" px="20" gap={1}>
+      <Heading mb={5} fontWeight={"extrabold"}>
+        Show Me The Issues
+      </Heading>
       {children}
-    </div>
+    </VStack>
   );
 }
-
-export default Layout;
