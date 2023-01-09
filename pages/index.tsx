@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import IssuesTableTemplate from "@components/IssuesTableTemplate";
 import Layout from "@components/Layout";
 import RepositoriesCards from "@components/RepositoriesCards";
-import SearchRepositories from "@components/SearchRepositories";
+import RepositoriesSearchBar from "@components/RepositoriesSearchBar";
 import { RepositoryState } from "@customTypes/repository";
 import { useEffect, useReducer } from "react";
 type Action =
@@ -83,7 +83,7 @@ export default function Home() {
         repositories={repositories}
         onClickDeleteRepository={handleClickDeleteRepository}
       />
-      <SearchRepositories
+      <RepositoriesSearchBar
         repositories={repositories}
         onClickAddRepository={handleClickAddRepository}
       />

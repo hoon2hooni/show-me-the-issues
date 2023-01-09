@@ -17,7 +17,7 @@ type ComponentProps = {
   onClickAddRepository: (repository: RepositoryState) => void;
 };
 
-export default function SearchRepositories({
+export default function RepositoriesSearchBar({
   onClickAddRepository,
 }: ComponentProps) {
   const [queries, setQueries] = useState("");
