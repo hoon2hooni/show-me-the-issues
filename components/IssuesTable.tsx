@@ -48,10 +48,15 @@ export default function IssuesTable({ issues }: { issues: Issue[] }) {
                 </Flex>
               </Td>
               <Td>
-                <Link fontSize={"lg"} colorScheme={"teal"}>
-                  <NextLink href={html_url} target="_blank">
-                    {title}
-                  </NextLink>
+                <Link
+                  fontSize={"lg"}
+                  as={NextLink}
+                  target={"_blank"}
+                  color={"blue.500"}
+                  href={html_url}
+                  _visited={{ color: "pink.700" }}
+                >
+                  {title}
                 </Link>
                 <Flex gap={2} align={"center"} mt={2}>
                   {labels.map(({ name, color }) => (

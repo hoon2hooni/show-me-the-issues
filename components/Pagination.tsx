@@ -54,7 +54,7 @@ export default function Pagination({
           .map((v, i) => (
             <Button
               aria-label={`${v}`}
-              key={v}
+              key={currentPaginateIndex * 5 + (i + 1)}
               onClick={() => onClickCurrentPage(i)}
               colorScheme={
                 currentPage === currentPaginateIndex * 5 + (i + 1)
