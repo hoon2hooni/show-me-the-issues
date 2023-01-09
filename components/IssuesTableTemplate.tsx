@@ -1,5 +1,5 @@
 import { Button, Spinner, Text } from "@chakra-ui/react";
-import CenterTableWrapper from "@components/CenterTableWrapper";
+import FixedHeightCenterWrapper from "@components/FixedHeightCenterWrapper";
 import IssuesTable from "@components/IssuesTable";
 import Pagination from "@components/Pagination";
 import { RepositoryState } from "@customTypes/repository";
@@ -10,16 +10,23 @@ type ComponentProps = {
   repositories: RepositoryState[];
 };
 
-const GITHUB_MAX_RESULT = 1000;
+/**
+ * github rest api의  search요청의 경우
+ * 처음 1000개 데이터만 요청이 가능합니다.
+ * https://docs.github.com/v3/search/
+ */
+const SEARCH_RESULTS_MAX_NUMBER = 1000;
+
 const PER_PAGINATE = 5;
+const PER_PAGE = 5;
+
 export default function IssuesTableTemplate({ repositories }: ComponentProps) {
-  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPaginateIndex, setCurrentPaginateIndex] = useState(0);
 
   const { data, isLoading, isError, refetch, fetchStatus } = useIssues({
     q: issueQueryBuilder(repositories),
-    per_page: `${perPage}`,
+    per_page: `${PER_PAGE}`,
     page: `${currentPage}`,
     sort: "created",
   });
@@ -32,46 +39,46 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
 
   if (!repositories.length) {
     return (
-      <CenterTableWrapper>
+      <FixedHeightCenterWrapper>
         <Text fontWeight={"extrabold"}>레포지토리를 입력해주세요</Text>
-      </CenterTableWrapper>
+      </FixedHeightCenterWrapper>
     );
   }
   if (fetchStatus === "paused") {
     return (
-      <CenterTableWrapper>
+      <FixedHeightCenterWrapper>
         <Text fontWeight={"extrabold"}>네트워크 연결이 원할하지 않습니다.</Text>
         <Button onClick={() => refetch()}>다시 불러오기</Button>
-      </CenterTableWrapper>
+      </FixedHeightCenterWrapper>
     );
   }
   if (isLoading) {
     return (
-      <CenterTableWrapper>
+      <FixedHeightCenterWrapper>
         <Spinner />
-      </CenterTableWrapper>
+      </FixedHeightCenterWrapper>
     );
   }
   if (isError) {
     return (
-      <CenterTableWrapper>
+      <FixedHeightCenterWrapper>
         <Text fontWeight={"extrabold"}>에러가 발생했습니다.</Text>
         <Button onClick={() => refetch()}>다시 불러오기</Button>
-      </CenterTableWrapper>
+      </FixedHeightCenterWrapper>
     );
   }
 
   if (!data?.data.total_count) {
     return (
-      <CenterTableWrapper>
+      <FixedHeightCenterWrapper>
         <Text fontWeight={"extrabold"}>이슈가 존재하지 않습니다.</Text>
-      </CenterTableWrapper>
+      </FixedHeightCenterWrapper>
     );
   }
 
   const lastPageNumber = Math.min(
-    GITHUB_MAX_RESULT / perPage,
-    Math.ceil(data.data.total_count / perPage)
+    SEARCH_RESULTS_MAX_NUMBER / PER_PAGE,
+    Math.ceil(data.data.total_count / PER_PAGE)
   );
   const lastPaginateIndex = Math.floor(lastPageNumber / PER_PAGINATE) - 1;
   const lastPaginateIndexRemainder =

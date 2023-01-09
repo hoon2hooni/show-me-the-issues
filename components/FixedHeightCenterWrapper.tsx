@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-export default function CenterTableWrapper({ children }: PropsWithChildren) {
+export default function FixedHeightCenterWrapper({ children }: PropsWithChildren) {
   return (
     <Flex
       direction={"column"}
