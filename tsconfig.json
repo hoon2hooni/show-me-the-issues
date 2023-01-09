@@ -35,5 +35,5 @@
     "types/emotion.d.ts",
     "cypress/cypress.config.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "cypress/**/*.ts"]
 }
