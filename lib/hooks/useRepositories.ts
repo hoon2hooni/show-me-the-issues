@@ -1,11 +1,7 @@
-import { Repository, RepositoryQueryConfig } from "@customTypes/repository";
+import { RepositoryQueryConfig } from "@customTypes/repository";
 import getRepositories from "@lib/api/getRepositories";
-import { useQuery } from "@tanstack/react-query";
+
+import useSearch from "./useSearch";
 export default function useRepositories(config: RepositoryQueryConfig) {
-  return useQuery({
-    queryFn: () => getRepositories(config),
-    queryKey: [{ path: "repositories", ...config }],
-    enabled: !!config.q,
-    retry: 0,
-  });
+  return useSearch("repositories", config, getRepositories);
 }

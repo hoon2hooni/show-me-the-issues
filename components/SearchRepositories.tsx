@@ -18,7 +18,6 @@ type ComponentProps = {
 };
 
 export default function SearchRepositories({
-  repositories,
   onClickAddRepository,
 }: ComponentProps) {
   const [queries, setQueries] = useState("");
@@ -29,7 +28,7 @@ export default function SearchRepositories({
     handler: () => setIsAutocompleteOpen(false),
   });
   const debouncedQueries = useDebounce(queries, 300);
-  const { data, isLoading, isError } = useRepositories({
+  const { data } = useRepositories({
     q: debouncedQueries,
     per_page: "5",
   });

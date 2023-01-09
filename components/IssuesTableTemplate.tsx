@@ -5,7 +5,7 @@ import Pagination from "@components/Pagination";
 import { RepositoryState } from "@customTypes/repository";
 import useIssues from "@lib/hooks/useIssues";
 import { issueQueryBuilder } from "@lib/queryBuilder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type ComponentProps = {
   repositories: RepositoryState[];
 };
@@ -17,16 +17,31 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPaginateIndex, setCurrentPaginateIndex] = useState(0);
 
-  const { data, isLoading, isError, refetch, error } = useIssues({
+  const { data, isLoading, isError, refetch, fetchStatus } = useIssues({
     q: issueQueryBuilder(repositories),
     per_page: `${perPage}`,
     page: `${currentPage}`,
+    sort: "created",
   });
+  
+  //검색한 레포지토리가 변경되었을때 초기화 해줍니다.
+  useEffect(() => {
+    setCurrentPage(1);
+    setCurrentPaginateIndex(0);
+  }, [repositories.length]);
 
   if (!repositories.length) {
     return (
       <CenterTableWrapper>
         <Text fontWeight={"extrabold"}>레포지토리를 입력해주세요</Text>
+      </CenterTableWrapper>
+    );
+  }
+  if (fetchStatus === "paused") {
+    return (
+      <CenterTableWrapper>
+        <Text fontWeight={"extrabold"}>네트워크 연결이 원할하지 않습니다.</Text>
+        <Button onClick={() => refetch()}>다시 불러오기</Button>
       </CenterTableWrapper>
     );
   }
@@ -40,8 +55,8 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
   if (isError) {
     return (
       <CenterTableWrapper>
-        <Text fontWeight={"extrabold"}>에러발생</Text>
-        <Button onClick={() => refetch()}>데이터 다시 불러오기</Button>
+        <Text fontWeight={"extrabold"}>에러가 발생했습니다.</Text>
+        <Button onClick={() => refetch()}>다시 불러오기</Button>
       </CenterTableWrapper>
     );
   }
