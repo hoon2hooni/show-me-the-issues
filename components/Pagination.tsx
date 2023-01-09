@@ -35,13 +35,16 @@ export default function Pagination({
         <IconButton
           aria-label="first paginate"
           icon={<ArrowLeftIcon h={3} w={3} />}
+          disabled={currentPaginateIndex === 0}
           onClick={onClickFirstPaginate}
+          data-cy="paginateFirst"
         />
         <IconButton
           aria-label="previous paginate"
           icon={<ChevronLeftIcon h={6} w={6} />}
           disabled={currentPaginateIndex === 0}
           onClick={onClickPrevPaginate}
+          data-cy="paginatePrev"
         />
       </HStack>
       <HStack>
@@ -72,11 +75,14 @@ export default function Pagination({
           icon={<ChevronRightIcon h={6} w={6} />}
           disabled={currentPaginateIndex === lastPaginateIndex}
           onClick={onClickNextPaginate}
+          data-cy="paginateNext"
         />
         <IconButton
           aria-label="last paginate"
+          disabled={currentPaginateIndex === lastPaginateIndex}
           icon={<ArrowRightIcon h={3} w={3} />}
           onClick={onClickLastPaginate}
+          data-cy="paginateLast"
         />
       </HStack>
     </HStack>

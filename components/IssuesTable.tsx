@@ -16,7 +16,7 @@ import getRepositoryInfoFromURL from "@lib/getRepositoryInfoFromURL";
 import NextLink from "next/link";
 export default function IssuesTable({ issues }: { issues: Issue[] }) {
   return (
-    <TableContainer w={"100%"}>
+    <TableContainer w={"100%"} data-cy="table">
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -26,7 +26,7 @@ export default function IssuesTable({ issues }: { issues: Issue[] }) {
           </Tr>
         </Thead>
         <Tbody>
-          {issues.map(({ node_id, title, state, labels, html_url }) => (
+          {issues.map(({ node_id, title, state, labels, html_url }, index) => (
             <Tr key={node_id}>
               <Td>
                 <Badge
@@ -55,6 +55,7 @@ export default function IssuesTable({ issues }: { issues: Issue[] }) {
                   color={"blue.500"}
                   href={html_url}
                   _visited={{ color: "pink.700" }}
+                  data-cy={`link${index}`}
                 >
                   {title}
                 </Link>

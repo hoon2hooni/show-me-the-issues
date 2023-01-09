@@ -13,8 +13,8 @@ export default function RepositoriesCards({
 }: ComponentProps) {
   return (
     <HStack gap={"5"} w={"100%"}>
-      {repositories.map(({ node_id, name, owner, stargazers_count }) => (
-        <Card w={240} key={node_id} pos={"relative"}>
+      {repositories.map(({ node_id, name, owner }) => (
+        <Card w={240} key={node_id} pos={"relative"} data-cy={`repositoryCard`}>
           <CardBody>
             <Text fontWeight={"extrabold"} h={3}>
               {name}
@@ -33,6 +33,7 @@ export default function RepositoriesCards({
             size="xs"
             icon={<DeleteIcon w={3} h={3} />}
             onClick={onClickDeleteRepository(node_id)}
+            data-cy={`delete${name}`}
           ></IconButton>
         </Card>
       ))}

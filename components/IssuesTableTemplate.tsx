@@ -23,7 +23,7 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
     page: `${currentPage}`,
     sort: "created",
   });
-  
+
   //검색한 레포지토리가 변경되었을때 초기화 해줍니다.
   useEffect(() => {
     setCurrentPage(1);

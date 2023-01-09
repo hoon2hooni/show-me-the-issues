@@ -50,6 +50,7 @@ export default function SearchRepositories({
         }}
         value={queries}
         onFocus={() => setIsAutocompleteOpen(true)}
+        data-cy="input"
       />
       {isAutocompleteOpen && data && (
         <VStack
@@ -63,47 +64,50 @@ export default function SearchRepositories({
           border="1px solid"
           borderColor={"gray.300"}
         >
-          {data.data.items.map(({ node_id, name, stargazers_count, owner }) => (
-            <Button
-              key={node_id}
-              pos={"relative"}
-              w={"100%"}
-              colorScheme={"gray"}
-              alignItems={"center"}
-              onClick={() => {
-                onClickAddRepository({
-                  node_id,
-                  name,
-                  owner: owner.login,
-                  stargazers_count,
-                });
-                setQueries("");
-                setIsAutocompleteOpen(false);
-              }}
-            >
-              <Flex h={12} w="100%" align={"center"}>
-                <Flex fontWeight={"bold"} w={"100%"}>
-                  {name}
-                  <Badge
-                    variant={"subtle"}
-                    colorScheme={"blue"}
-                    ml="2"
-                    display={"flex"}
-                    alignItems={"center"}
-                  >
-                    ⭐: {stargazers_count}
-                  </Badge>
-                  <Text
-                    ml={"auto"}
-                    fontWeight={"medium"}
-                    alignSelf={"flex-end"}
-                  >
-                    {owner.login}
-                  </Text>
+          {data.data.items.map(
+            ({ node_id, name, stargazers_count, owner }, index) => (
+              <Button
+                key={node_id}
+                pos={"relative"}
+                w={"100%"}
+                colorScheme={"gray"}
+                alignItems={"center"}
+                onClick={() => {
+                  onClickAddRepository({
+                    node_id,
+                    name,
+                    owner: owner.login,
+                    stargazers_count,
+                  });
+                  setQueries("");
+                  setIsAutocompleteOpen(false);
+                }}
+                data-cy={`autocomplete-${index}`}
+              >
+                <Flex h={12} w="100%" align={"center"}>
+                  <Flex fontWeight={"bold"} w={"100%"}>
+                    {name}
+                    <Badge
+                      variant={"subtle"}
+                      colorScheme={"blue"}
+                      ml="2"
+                      display={"flex"}
+                      alignItems={"center"}
+                    >
+                      ⭐: {stargazers_count}
+                    </Badge>
+                    <Text
+                      ml={"auto"}
+                      fontWeight={"medium"}
+                      alignSelf={"flex-end"}
+                    >
+                      {owner.login}
+                    </Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Button>
-          ))}
+              </Button>
+            )
+          )}
         </VStack>
       )}
     </Box>

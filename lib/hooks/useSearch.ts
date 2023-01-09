@@ -26,7 +26,7 @@ export default function useSearch<
          */
         if (error.response?.status === 403) {
           const e = error as AxiosGithub403Error<{ message: string }>;
-          const remainSec = getApiResetTime(e);
+          const remainSec = getApiResetTime(e, new Date());
           toast({
             status: "error",
             title: `데이터 요청량이 많습니다. ${remainSec}초 뒤에 다시 시도해주세요`,
@@ -44,6 +44,7 @@ export default function useSearch<
           status: "error",
           title: "잘못된 시도를 하시는 군요. 다시 시도해주세요",
         });
+        return;
       }
       toast({
         status: "error",

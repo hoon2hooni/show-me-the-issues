@@ -32,7 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     "types/env.d.ts",
-    "types/emotion.d.ts"
+    "types/emotion.d.ts",
+    "cypress/cypress.config.js"
   ],
   "exclude": ["node_modules"]
 }
