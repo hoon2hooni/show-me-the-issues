@@ -1,7 +1,7 @@
 name: E2E on Chrome
 on: [push]
 jobs:
-  cypress-run:
+  e2e:
     runs-on: ubuntu-20.04
     # let's make sure our tests pass on Chrome browser
     name: E2E on Chrome
@@ -13,3 +13,19 @@ jobs:
           build: yarn build
           start: yarn start
           wait-on: "http://localhost:3000"
+  
+  unit:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+      # without installing the Cypress binary
+      - name: Install NPM dependencies 📦
+        uses: bahmutov/npm-install@v1
+        env:
+          # we do not need to install Cypress itself
+          # as we do not plan to run tests
+          CYPRESS_INSTALL_BINARY: 0
+
+      - name: Run Jest tests 🧪
+        run: npm test

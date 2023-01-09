@@ -1,3 +1,4 @@
+import { expect, test } from "@jest/globals";
 import getRepositoryInfoFromURL from "@lib/getRepositoryInfoFromURL";
 test("test issueQueryBuilder", () => {
   expect(

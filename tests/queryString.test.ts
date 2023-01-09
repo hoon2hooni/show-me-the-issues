@@ -1,3 +1,4 @@
+import { expect, test } from "@jest/globals";
 import { getQueryString } from "@lib/queryString";
 
 test("test querystring", () => {

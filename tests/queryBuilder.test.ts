@@ -1,4 +1,4 @@
-import { RepositoryState } from "@customTypes/repository";
+import { expect, test } from "@jest/globals";
 import { issueQueryBuilder } from "@lib/queryBuilder";
 test("test issueQueryBuilder", () => {
   expect(issueQueryBuilder([{ owner: "facebook", name: "react" }])).toBe(
