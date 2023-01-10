@@ -1,4 +1,4 @@
-# Show me the issues
+# [Show me the issues](https://show-me-the-issues.vercel.app/)
 
 [github rest api](https://docs.github.com/en/rest/search?apiVersion=2022-11-28#about-search)를 활용해 원하는 public repository의 issue들을 모아서 확인할 수 있는 프로젝트 입니다.
 
@@ -36,7 +36,7 @@ npm run start
 ```bash
 npm run e2e
 #웹을 실행하고 cypress를 엽니다.
-npm run e2e:headless 
+npm run e2e:headless
 #웹을 실행하고 cypress를 headless모드로 실행합니다.
 npm run test
 #unit test를 진행합니다.
@@ -75,8 +75,9 @@ npm run test
 nextjs는 react를 활용하여 SSR(서버사이드 렌더링)을 가능하게 해주는 프레임워크입니다.
 <br/>
 <strong>nextjs를 사용한 이유는 다음과 같습니다.</strong>
-- nextjs는 SSR을 지원합니다. 
-이는 자바스크립트가 없는 환경에서도 최소한의 빌드 된 화면을 유저들에게 보여줍니다.
+
+- nextjs는 SSR을 지원합니다.
+  이는 자바스크립트가 없는 환경에서도 최소한의 빌드 된 화면을 유저들에게 보여줍니다.
 
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/70311004/211442490-3df53895-9e37-48e4-9dfd-9fb21febb538.png"/>
 
@@ -96,8 +97,7 @@ typescript는 javascript에 정적 타입 언어를
 <strong>typescript를 사용한 이유는 다음과 같습니다.</strong>
 
 - 안정적인 앱과 더불어 빠르게 개발을 할 수 있게 도와줍니다.
-미리 함수의 interface, api의 응답 type을 정한 후에 개발하기에 editor의 자동완성의 도움과 발생할 수 있는 에러를 컴파일 단계에서 잡아줍니다.
-
+  미리 함수의 interface, api의 응답 type을 정한 후에 개발하기에 editor의 자동완성의 도움과 발생할 수 있는 에러를 컴파일 단계에서 잡아줍니다.
 
 ### 3. react-query
 
@@ -105,16 +105,17 @@ react-query는 server state를 지원해 주는 라이브러리입니다.
 
 <strong>react-query를 사용한 이유는 다음과 같습니다.</strong>
 
-  1. 데이터를 캐싱 합니다. 이로 인해 같은 요청일 경우 데이터를 유저에게 빠르게 보여줍니다.
+1. 데이터를 캐싱 합니다. 이로 인해 같은 요청일 경우 데이터를 유저에게 빠르게 보여줍니다.
 
-  2.  선언형으로 프로그래밍을 가능하게 합니다.
-  이는 데이터를 불러오는 부분의 코드를 간결해졌습니다.
+2. 선언형으로 프로그래밍을 가능하게 합니다.
+   이는 데이터를 불러오는 부분의 코드를 간결해졌습니다.
 
 ### 4. chakra-ui
 
 디자인 컴포넌트로는 chakra-ui를 사용했습니다.
 <br/>
 <strong>charka-ui를 사용한 이유는 다음과 같습니다.</strong>
+
 - 프로젝트에 알맞은 컴포넌트(table, badge, toast..)가 제공되었습니다.
 - 다른 디자인 시스템에 비해 확장성이 좋습니다.
 
