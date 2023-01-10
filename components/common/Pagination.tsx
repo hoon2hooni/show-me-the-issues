@@ -33,14 +33,14 @@ export default function Pagination({
     <HStack w={"100%"} justify="center" mt="10" gap="5">
       <HStack>
         <IconButton
-          aria-label="first paginate"
+          aria-label="move first paginate"
           icon={<ArrowLeftIcon h={3} w={3} />}
           disabled={currentPaginateIndex === 0}
           onClick={onClickFirstPaginate}
           data-cy="paginateFirst"
         />
         <IconButton
-          aria-label="previous paginate"
+          aria-label="move previous paginate"
           icon={<ChevronLeftIcon h={6} w={6} />}
           disabled={currentPaginateIndex === 0}
           onClick={onClickPrevPaginate}
@@ -56,7 +56,7 @@ export default function Pagination({
           .fill(0)
           .map((v, i) => (
             <Button
-              aria-label={`${v}`}
+              aria-label={`search ${currentPaginateIndex * 5 + (i + 1)} page`}
               key={currentPaginateIndex * 5 + (i + 1)}
               onClick={() => onClickCurrentPage(i)}
               colorScheme={
@@ -71,14 +71,14 @@ export default function Pagination({
       </HStack>
       <HStack>
         <IconButton
-          aria-label="next paginate"
+          aria-label="move next paginate"
           icon={<ChevronRightIcon h={6} w={6} />}
           disabled={currentPaginateIndex === lastPaginateIndex}
           onClick={onClickNextPaginate}
           data-cy="paginateNext"
         />
         <IconButton
-          aria-label="last paginate"
+          aria-label="move last paginate"
           disabled={currentPaginateIndex === lastPaginateIndex}
           icon={<ArrowRightIcon h={3} w={3} />}
           onClick={onClickLastPaginate}
