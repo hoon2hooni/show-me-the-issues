@@ -6,6 +6,12 @@ describe("search repository and add it", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
     cy.visit("/");
+    cy.intercept(
+      `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+      {
+        fixture: `searchIssuesResponses/cypress.json`,
+      }
+    ).as("getFirstPage");
   });
 
   afterEach(() => {
@@ -25,24 +31,19 @@ describe("search repository and add it", () => {
     cy.dataCy("autocomplete-0")
       .contains(targetRepo)
       .click()
-      .intercept(
-        `https://api.github.com/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
-        {
-          fixture: `searchIssuesResponses/cypress.json`,
-        }
-      );
+      .wait("@getFirstPage");
   });
   context("test exceptions", () => {
     it("test when issues empty", () => {
       cy.intercept(
-        `https://api.github.com/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
         { fixture: `searchIssuesResponses/empty.json` }
       );
       cy.contains("이슈가 존재하지 않습니다.");
     });
     it("test when server has error", () => {
       cy.intercept(
-        `https://api.github.com/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
         { fixture: `searchIssuesResponses/500Error.json`, statusCode: 500 }
       );
       cy.contains("github 서버에 문제가 있습니다. 잠시후에 다시 시도해주세요!");
@@ -50,7 +51,7 @@ describe("search repository and add it", () => {
     it("test when exceed limit rate", () => {
       const resetSeconds = 3;
       cy.intercept(
-        `https://api.github.com/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
         {
           fixture: `searchIssuesResponses/403Error.json`,
           statusCode: 403,
@@ -68,7 +69,7 @@ describe("search repository and add it", () => {
     });
     it("test when user error", () => {
       cy.intercept(
-        `https://api.github.com/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
         {
           statusCode: 400,
         }
@@ -78,40 +79,57 @@ describe("search repository and add it", () => {
   });
   context("test pagination", () => {
     it("test paginate Last Page", () => {
-      cy.intercept(`https://api.github.com/search/issues*`, {
-        fixture: `searchIssuesResponses/cypress.json`,
-      }).as("getCypress");
-
-      cy.dataCy("paginateLast").click().wait("@getCypress");
-      cy.contains("200");
+      const lastPage = 200;
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=${lastPage}&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getLastPage");
+      cy.wait("@getFirstPage");
+      cy.dataCy("paginateLast").click().wait("@getLastPage");
+      cy.contains(lastPage);
       cy.dataCy("paginateLast").should("be.disabled");
       cy.dataCy("paginateNext").should("be.disabled");
     });
 
     it("test paginate First Page", () => {
-      cy.intercept(`https://api.github.com/search/issues*`, {
-        fixture: `searchIssuesResponses/cypress.json`,
-      }).as("getCypress");
+      cy.wait("@getFirstPage");
       cy.dataCy("paginateFirst").should("be.disabled");
       cy.dataCy("paginatePrev").should("be.disabled");
     });
 
     it("test paginate next and prev page", () => {
-      cy.intercept(`https://api.github.com/search/issues*`, {
-        fixture: `searchIssuesResponses/cypress.json`,
-      }).as("getCypress");
-      cy.dataCy("paginateNext").click().wait("@getCypress");
-      cy.contains("6");
-      cy.dataCy("paginatePrev").click().wait("@getCypress");
-      cy.contains("5");
+      const nextPage = 6;
+
+      const prevPage = 5;
+
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=${nextPage}&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getNextPage");
+
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=${prevPage}&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getPrevPage");
+
+      cy.wait("@getFirstPage");
+      cy.dataCy("paginateNext").click().wait("@getNextPage");
+      cy.contains(nextPage);
+
+      cy.dataCy("paginatePrev").click().wait("@getPrevPage");
+      cy.contains(prevPage);
     });
   });
 
   context("test link is able", () => {
     it("test link is ok", () => {
-      cy.intercept(`https://api.github.com/search/issues*`, {
-        fixture: `searchIssuesResponses/cypress.json`,
-      }).as("getCypress");
+      cy.wait("@getFirstPage");
       cy.dataCy("link0")
         .should(
           "have.attr",
