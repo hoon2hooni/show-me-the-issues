@@ -5,7 +5,7 @@ describe("search repository and add it", () => {
 
   beforeEach(() => {
     cy.restoreLocalStorage();
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 
   afterEach(() => {

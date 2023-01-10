@@ -10,6 +10,8 @@
     "test": "jest",
     "start-dev": "npm run dev",
     "cypress:headless": "cypress run",
+    "cypress": "cypress open",
+    "e2e": "start-server-and-test start-dev http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start-dev http://localhost:3000 cypress:headless"
   },
   "dependencies": {
