@@ -9,8 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useOutsideClick } from "@chakra-ui/react";
 import { RepositoryState } from "@customTypes/repository";
-import useDebounce from "@lib/hooks/useDebounce";
-import useRepositories from "@lib/hooks/useRepositories";
+import { useDebounce, useRepositories } from "@lib/hooks";
 import { useRef, useState } from "react";
 type ComponentProps = {
   repositories: RepositoryState[];

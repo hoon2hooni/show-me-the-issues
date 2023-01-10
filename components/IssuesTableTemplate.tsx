@@ -4,7 +4,7 @@ import IssuesTable from "@components/IssuesTable";
 import Pagination from "@components/Pagination";
 import { RepositoryState } from "@customTypes/repository";
 import { issueQueryBuilder } from "@lib/helper";
-import useIssues from "@lib/hooks/useIssues";
+import { useIssues } from "@lib/hooks";
 import { useEffect, useState } from "react";
 type ComponentProps = {
   repositories: RepositoryState[];
