@@ -79,7 +79,7 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
     SEARCH_RESULTS_MAX_NUMBER / PER_PAGE,
     Math.ceil(data.data.total_count / PER_PAGE)
   );
-  const lastPaginateIndex = Math.floor(lastPageNumber / PER_PAGINATE) - 1;
+  const lastPaginateIndex = Math.ceil(lastPageNumber / PER_PAGINATE) - 1;
   const lastPaginateIndexRemainder =
     lastPageNumber - PER_PAGINATE * lastPaginateIndex;
 
@@ -112,7 +112,6 @@ export default function IssuesTableTemplate({ repositories }: ComponentProps) {
       <Pagination
         currentPage={currentPage}
         currentPaginateIndex={currentPaginateIndex}
-        lastPageNumber={lastPageNumber}
         lastPaginateIndex={lastPaginateIndex}
         onClickCurrentPage={handleClickCurrentPage}
         onClickFirstPaginate={handleClickFirstPaginate}

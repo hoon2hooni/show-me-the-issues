@@ -12,7 +12,6 @@ type ComponentProps = {
   lastPaginateIndex: number;
   currentPaginateIndex: number;
   lastPaginateIndexRemainder: number;
-  lastPageNumber: number;
   onClickCurrentPage: (i: number) => void;
 } & {
   [key in onClickPaginateHandlers]: () => void;
@@ -20,15 +19,14 @@ type ComponentProps = {
 export default function Pagination({
   currentPage,
   currentPaginateIndex,
-  lastPageNumber,
   onClickFirstPaginate,
   onClickLastPaginate,
   onClickNextPaginate,
   onClickPrevPaginate,
   onClickCurrentPage,
+  lastPaginateIndex,
+  lastPaginateIndexRemainder,
 }: ComponentProps) {
-  const lastPaginateIndex = Math.ceil(lastPageNumber / 5) - 1;
-  const lastPaginateIndexRemainder = lastPageNumber - 5 * lastPaginateIndex;
   return (
     <HStack w={"100%"} justify="center" mt="10" gap="5">
       <HStack>
