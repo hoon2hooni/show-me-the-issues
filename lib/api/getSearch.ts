@@ -1,7 +1,7 @@
 import { QueryConfig, SearchResponse } from "@customTypes/common";
-import { getQueryString } from "lib/helper";
+import { getQueryString } from "@lib/helper";
 
-import axiosInstance from "./axiosInstance";
+import githubSearchAxiosInstance from "./githubSearchAxiosInstance";
 
 const getSearch = <
   TQueryConfig extends QueryConfig,
@@ -10,7 +10,7 @@ const getSearch = <
   path: string
 ) => {
   return (queryConfig: TQueryConfig) =>
-    axiosInstance.get<TSearchResponse>(
+    githubSearchAxiosInstance.get<TSearchResponse>(
       `${path}?${getQueryString(queryConfig)}`
     );
 };

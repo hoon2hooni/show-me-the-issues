@@ -22,7 +22,7 @@
       "@styles/*": ["styles/*"],
       "@assets/*": ["assets/*"],
       "@lib/*": ["lib/*"],
-      "@api/*": ["lib/api/*"],
+      "@api": ["lib/api"],
       "@hooks/*": ["lib/hooks/*"],
       "@helper": ["lib/helper"],
       "@customTypes/*": ["types/*"]
