@@ -27,7 +27,7 @@ export default function Pagination({
   onClickPrevPaginate,
   onClickCurrentPage,
 }: ComponentProps) {
-  const lastPaginateIndex = Math.floor(lastPageNumber / 5) - 1;
+  const lastPaginateIndex = Math.ceil(lastPageNumber / 5) - 1;
   const lastPaginateIndexRemainder = lastPageNumber - 5 * lastPaginateIndex;
   return (
     <HStack w={"100%"} justify="center" mt="10" gap="5">
