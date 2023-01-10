@@ -1,3 +1,4 @@
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Badge,
   Box,
@@ -34,13 +35,14 @@ export default function RepositoriesSearchBar({
 
   return (
     <Box
-      alignSelf={"flex-start"}
+      alignSelf={"center"}
       pos={"relative"}
       w={"xl"}
       zIndex={20}
       bg={"white"}
       ref={autocompleteRef}
     >
+      <SearchIcon pos={"absolute"} top={3} left={3} zIndex={30} />
       <Input
         px="8"
         onChange={(e) => {

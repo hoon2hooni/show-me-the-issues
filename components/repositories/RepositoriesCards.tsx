@@ -12,14 +12,14 @@ export default function RepositoriesCards({
   onClickDeleteRepository,
 }: ComponentProps) {
   return (
-    <HStack gap={"5"} w={"100%"}>
+    <HStack gap={"5"} w={"100%"} justify={"center"}>
       {repositories.map(({ node_id, name, owner }) => (
         <Card w={240} key={node_id} pos={"relative"} data-cy={`repositoryCard`}>
           <CardBody>
-            <Text fontWeight={"extrabold"} h={3}>
+            <Text fontWeight={"extrabold"} w={"100%"} isTruncated>
               {name}
             </Text>
-            <Text fontSize={"sm"} fontWeight={"bold"} mt={3} h={3}>
+            <Text fontSize={"sm"} fontWeight={"bold"} isTruncated>
               {owner}
             </Text>
           </CardBody>
