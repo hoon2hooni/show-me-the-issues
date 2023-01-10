@@ -1,5 +1,5 @@
 import { expect, test } from "@jest/globals";
-import { issueQueryBuilder } from "@lib/queryBuilder";
+import { issueQueryBuilder } from "@lib/helper";
 test("test issueQueryBuilder", () => {
   expect(issueQueryBuilder([{ owner: "facebook", name: "react" }])).toBe(
     "repo:facebook/react is:issue"

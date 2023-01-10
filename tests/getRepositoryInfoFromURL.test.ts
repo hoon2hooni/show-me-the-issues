@@ -1,6 +1,6 @@
 import { expect, test } from "@jest/globals";
-import getRepositoryInfoFromURL from "@lib/getRepositoryInfoFromURL";
-test("test issueQueryBuilder", () => {
+import { getRepositoryInfoFromURL } from "@lib/helper";
+test("test getRepositoryInfoFromURL", () => {
   expect(
     getRepositoryInfoFromURL(
       "https://github.com/microsoft/TypeScript/issues/52118"

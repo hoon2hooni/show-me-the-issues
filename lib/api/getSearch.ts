@@ -1,6 +1,6 @@
 import { QueryConfig, SearchResponse } from "@customTypes/common";
+import { getQueryString } from "lib/helper";
 
-import { getQueryString } from "../queryString";
 import axiosInstance from "./axiosInstance";
 
 const getSearch = <

@@ -24,6 +24,7 @@
       "@lib/*": ["lib/*"],
       "@api/*": ["lib/api/*"],
       "@hooks/*": ["lib/hooks/*"],
+      "@helper": ["lib/helper"],
       "@customTypes/*": ["types/*"]
     }
   },

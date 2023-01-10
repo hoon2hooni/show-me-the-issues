@@ -1,10 +1,9 @@
 import { useToast } from "@chakra-ui/react";
 import { AxiosGithub403Error, QueryConfig } from "@customTypes/common";
 import getSearch from "@lib/api/getSearch";
+import { getApiResetTime } from "@lib/helper";
 import { useQuery } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
-
-import getApiResetTime from "../getApiResetTime";
 
 export default function useSearch<
   TPath extends string,

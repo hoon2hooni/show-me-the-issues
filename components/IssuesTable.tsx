@@ -12,7 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { Issue } from "@customTypes/issue";
-import getRepositoryInfoFromURL from "@lib/getRepositoryInfoFromURL";
+import { getRepositoryInfoFromURL } from "@lib/helper";
 import NextLink from "next/link";
 export default function IssuesTable({ issues }: { issues: Issue[] }) {
   return (

@@ -1,6 +1,6 @@
 import { RepositoryState } from "@customTypes/repository";
 
-export function issueQueryBuilder<
+export default function issueQueryBuilder<
   T extends Pick<RepositoryState, "name" | "owner">[]
 >(array: T) {
   if (!array.length) {
