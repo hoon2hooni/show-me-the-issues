@@ -6,12 +6,6 @@ describe("search repository and add it", () => {
   beforeEach(() => {
     cy.restoreLocalStorage();
     cy.visit("/");
-    cy.intercept(
-      `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
-      {
-        fixture: `searchIssuesResponses/cypress.json`,
-      }
-    ).as("getFirstPage");
   });
 
   afterEach(() => {
@@ -28,6 +22,12 @@ describe("search repository and add it", () => {
     cy.intercept(`/search/repositories?q=${targetRepo}*`, {
       fixture: `searchRepositoriesResponses/${targetRepo}.json`,
     });
+    cy.intercept(
+      `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+      {
+        fixture: `searchIssuesResponses/cypress.json`,
+      }
+    ).as("getFirstPage");
     cy.dataCy("autocomplete-0")
       .contains(targetRepo)
       .click()
@@ -79,6 +79,12 @@ describe("search repository and add it", () => {
   });
   context("test pagination", () => {
     it("test paginate Last Page", () => {
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getFirstPage");
       const lastPage = 200;
       cy.intercept(
         `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=${lastPage}&sort=created`,
@@ -94,12 +100,24 @@ describe("search repository and add it", () => {
     });
 
     it("test paginate First Page", () => {
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getFirstPage");
       cy.wait("@getFirstPage");
       cy.dataCy("paginateFirst").should("be.disabled");
       cy.dataCy("paginatePrev").should("be.disabled");
     });
 
     it("test paginate next and prev page", () => {
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getFirstPage");
       const nextPage = 6;
 
       const prevPage = 5;
@@ -129,6 +147,12 @@ describe("search repository and add it", () => {
 
   context("test link is able", () => {
     it("test link is ok", () => {
+      cy.intercept(
+        `/search/issues?q=repo%3Acypress-io%2Fcypress+is%3Aissue&per_page=5&page=1&sort=created`,
+        {
+          fixture: `searchIssuesResponses/cypress.json`,
+        }
+      ).as("getFirstPage");
       cy.wait("@getFirstPage");
       cy.dataCy("link0")
         .should(
