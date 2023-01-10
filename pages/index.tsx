@@ -1,8 +1,10 @@
 import { useToast } from "@chakra-ui/react";
 import { Layout } from "@components/common";
 import { IssuesTableTemplate } from "@components/issues";
-import RepositoriesCards from "@components/RepositoriesCards";
-import RepositoriesSearchBar from "@components/RepositoriesSearchBar";
+import {
+  RepositoriesCards,
+  RepositoriesSearchBar,
+} from "@components/repositories";
 import { RepositoryState } from "@customTypes/repository";
 import { useEffect, useReducer } from "react";
 type Action =
