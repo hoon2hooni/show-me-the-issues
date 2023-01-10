@@ -4,7 +4,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { Badge, Button, HStack, IconButton } from "@chakra-ui/react";
+import { Button, HStack, IconButton } from "@chakra-ui/react";
 type Direction = "First" | "Prev" | "Next" | "Last";
 type onClickPaginateHandlers = `onClick${Direction}Paginate`;
 type ComponentProps = {

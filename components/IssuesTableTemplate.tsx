@@ -1,7 +1,6 @@
 import { Button, Spinner, Text } from "@chakra-ui/react";
-import FixedHeightCenterWrapper from "@components/FixedHeightCenterWrapper";
+import { FixedHeightCenterWrapper, Pagination } from "@components/common";
 import IssuesTable from "@components/IssuesTable";
-import Pagination from "@components/Pagination";
 import { RepositoryState } from "@customTypes/repository";
 import { issueQueryBuilder } from "@lib/helper";
 import { useIssues } from "@lib/hooks";

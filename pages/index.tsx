@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
+import { Layout } from "@components/common";
 import IssuesTableTemplate from "@components/IssuesTableTemplate";
-import Layout from "@components/Layout";
 import RepositoriesCards from "@components/RepositoriesCards";
 import RepositoriesSearchBar from "@components/RepositoriesSearchBar";
 import { RepositoryState } from "@customTypes/repository";
